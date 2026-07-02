@@ -14,6 +14,7 @@ Cikti:
 """
 
 import csv
+import hashlib
 import json
 import os
 import re
@@ -245,6 +246,11 @@ def write_dashboard(rows, path, template_path, query_count):
 def main():
     if not API_KEY:
         sys.exit("Hata: GOOGLE_PLACES_API_KEY ortam değişkeni tanımlı değil.")
+
+    # Key'in kendisini hic yazdirmadan, calisan key ile karsilastirmak icin
+    # sadece uzunluk + hash "parmak izi" basiyoruz (debug amacli).
+    key_fingerprint = hashlib.sha256(API_KEY.encode()).hexdigest()[:12]
+    print(f"[debug] API_KEY uzunluk: {len(API_KEY)}, sha256 (ilk 12): {key_fingerprint}")
 
     if not os.path.exists(TEMPLATE_FILE):
         sys.exit(f"Hata: {TEMPLATE_FILE} bulunamadı. Script ile aynı klasörde olmalı.")
