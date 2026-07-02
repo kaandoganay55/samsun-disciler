@@ -103,7 +103,7 @@ def get_places(query, api_key):
             retries += 1
 
         if status not in ("OK", "ZERO_RESULTS"):
-            print(f"  Places API hatasi ({query}): {status} - {resp.get('error_message', '')}", file=sys.stderr)
+            print(f"  Places API hatasi ({query}): {json.dumps(resp, ensure_ascii=False)}", file=sys.stderr)
             break
 
         places.extend(resp.get("results", []))
