@@ -95,10 +95,13 @@ def get_places(query, api_key):
         resp = requests.get(TEXT_SEARCH_URL, params=params, timeout=REQUEST_TIMEOUT).json()
         status = resp.get("status")
 
-        # next_page_token birkac saniye aktif olmayabilir; birkac kez tekrar dene.
+        # INVALID_REQUEST bazen gecici oluyor (next_page_token henuz aktif
+        # olmamis olabilir, ya da art arda cok hizli istek atilinca - ozellikle
+        # GitHub Actions gibi dusuk gecikmeli ortamlarda - Google gecici olarak
+        # bu hatayi donduruyor). Birkac kez, artan bekleme ile tekrar deniyoruz.
         retries = 0
-        while status == "INVALID_REQUEST" and "pagetoken" in params and retries < 3:
-            time.sleep(2)
+        while status == "INVALID_REQUEST" and retries < 4:
+            time.sleep(2 + retries)
             resp = requests.get(TEXT_SEARCH_URL, params=params, timeout=REQUEST_TIMEOUT).json()
             status = resp.get("status")
             retries += 1
@@ -169,7 +172,7 @@ def collect_places(api_key):
             if "samsun" not in place.get("formatted_address", "").lower():
                 continue
             unique.setdefault(place["place_id"], place)
-        time.sleep(0.3)
+        time.sleep(1.0)
     return list(unique.values())
 
 
