@@ -45,7 +45,10 @@ SAMSUN_ILCELERI = [
 # Her ilcede birden fazla anahtar kelimeyle aramak, tek kelimeyle kacan
 # isletmeleri de yakalamamizi sagliyor (bircok klinik sadece "dis hekimi"
 # ya da sadece "poliklinik" olarak kayitli).
-KEYWORDS = ["diş kliniği", "diş hekimi", "ağız ve diş sağlığı polikliniği"]
+KEYWORDS = [
+    "diş kliniği", "diş hekimi", "ağız ve diş sağlığı polikliniği",
+    "implant merkezi", "ortodonti", "gülüş tasarımı", "ağız ve çene cerrahisi",
+]
 
 SEARCH_QUERIES = [f"{kw} Samsun" for kw in KEYWORDS] + [
     f"{kw} {ilce} Samsun" for ilce in SAMSUN_ILCELERI for kw in KEYWORDS
