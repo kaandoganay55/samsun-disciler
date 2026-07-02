@@ -1,6 +1,6 @@
 <title>Samsun Diş Klinikleri — Web Altyapı Taraması</title>
 <style>
-  .viz-root {
+  :root {
     --page:        #f5f4ef;
     --surface:     #ffffff;
     --ink:         #14161a;
@@ -19,7 +19,7 @@
     --shadow: 0 1px 2px rgba(20,22,26,0.04), 0 6px 16px rgba(20,22,26,0.05);
   }
   @media (prefers-color-scheme: dark) {
-    .viz-root {
+    :root {
       --page:        #0d0d0d;
       --surface:     #1a1a19;
       --ink:         #ffffff;
@@ -310,6 +310,43 @@
     padding: 1px 5px;
     border-radius: 4px;
     font-size: 11.5px;
+  }
+
+  /* --- mobil uyum --- */
+  @media (max-width: 640px) {
+    .viz-root { padding: 28px 14px 56px; }
+    .meta { font-size: 13.5px; margin-bottom: 28px; }
+    .panel-card { padding: 16px 14px 14px; }
+    section { margin-bottom: 32px; }
+
+    .bar-row { grid-template-columns: 92px 1fr 32px; gap: 8px; }
+    .bar-row .label { font-size: 12.5px; }
+    .bars-grid .bar-row { grid-template-columns: 84px 1fr 26px; }
+
+    .controls { gap: 6px; }
+    .chip { font-size: 12.5px; padding: 6px 11px; }
+    .select { font-size: 12.5px; }
+    .search {
+      margin-left: 0;
+      min-width: 0;
+      width: 100%;
+      order: 99; /* filtrelerin altina, tam genislik */
+    }
+
+    .table-wrap { max-height: 70vh; border-radius: 12px; }
+    table { min-width: 560px; }
+    thead th { font-size: 10px; padding: 10px 10px; }
+    tbody td { font-size: 12.5px; padding: 9px 10px; }
+    td.name { max-width: 160px; }
+    thead th:nth-child(3), tbody td:nth-child(3) { display: none; } /* Adres: ilce zaten konumu veriyor, yatay kaydirmada yer kaplamasin */
+    .pill { font-size: 11px; padding: 3px 8px; }
+    .pill svg { width: 10px; height: 10px; }
+  }
+
+  @media (max-width: 380px) {
+    .tiles { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .tile { padding: 14px 14px 12px; }
+    .tile .n { font-size: 24px; }
   }
 </style>
 
